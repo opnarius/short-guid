@@ -30,7 +30,7 @@ namespace ShortGuid
 
         public override string ToString()
         {
-            return Convert.ToBase64String(_backingGuid.ToByteArray()).Replace("=", "");
+            return Convert.ToBase64String(_backingGuid.ToByteArray()).Replace("=", "").Replace("/", "_");
         }
 
         public Guid ToGuid()
@@ -49,7 +49,7 @@ namespace ShortGuid
             if (text.Length % 3 != 0)
                 t.Append("==");
 
-            var guidBytes = Convert.FromBase64String(t.ToString());
+            var guidBytes = Convert.FromBase64String(t.ToString().Replace("_", "/"));
 
             var guid = new Guid(guidBytes);
 
